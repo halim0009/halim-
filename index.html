@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ClasseViva Student Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cvBg: '#101417',
+                        cvCard: '#21262b',
+                        cvCyan: '#12b5cb',
+                        cvRed: '#e64c65',
+                        cvYellow: '#f39c12',
+                        cvGrayText: '#9aa0a6',
+                        cvBorder: '#2e353d'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #101417;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-cvBg text-white min-h-screen pb-24">
+
+    <!-- TOP HEADER -->
+    <header class="p-4 flex items-center justify-between bg-cvBg sticky top-0 z-10 border-b border-cvBorder/30">
+        <div>
+            <h1 class="text-xl font-bold tracking-wide">YOUSRA</h1>
+            <p class="text-xs text-cvGrayText mt-0.5">Dati aggiornati alle 07:20 del 22/10/26</p>
+        </div>
+        <div class="w-9 h-9 rounded-full bg-cvCyan flex items-center justify-center text-white font-bold text-lg shadow-sm">
+            <i class="fa-solid fa-user text-base"></i>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="p-3 space-y-4 max-w-md mx-auto">
+        
+        <!-- HOME TAB -->
+        <div id="tab-home" class="space-y-4">
+            
+            <!-- SUMMARY CARD -->
+            <div class="bg-cvCard rounded-2xl p-4 border border-cvBorder/40">
+                <div class="grid grid-cols-2 gap-2">
+                    <!-- MEDIA -->
+                    <div class="flex flex-col items-center justify-between border-r border-cvBorder/60 pr-2">
+                        <div class="flex items-center gap-2 self-start mb-2">
+                            <i class="fa-regular fa-eye text-cvCyan text-sm"></i>
+                            <span class="text-sm font-semibold text-gray-200">Media</span>
+                        </div>
+                        <div class="my-2 flex items-center justify-center">
+                            <div class="w-20 h-20 rounded-full border-4 border-cvYellow flex items-center justify-center">
+                                <span class="text-cvCyan text-base font-bold">N.D.</span>
+                            </div>
+                        </div>
+                        <p class="text-[10px] text-cvGrayText italic text-center mt-2">
+                            Calcolata nel periodo 01/09/26 - 31/01/27
+                        </p>
+                    </div>
+
+                    <!-- PREPARA LO ZAINO -->
+                    <div class="flex flex-col items-center justify-between pl-2">
+                        <div class="flex items-center justify-between w-full mb-2">
+                            <span class="text-sm font-semibold text-gray-200">Prepara lo zaino!</span>
+                            <i class="fa-solid fa-chevron-right text-xs text-cvGrayText"></i>
+                        </div>
+                        <button onclick="openModal('schedule-modal')" class="my-1 focus:outline-none">
+                            <div class="w-16 h-16 flex items-center justify-center bg-cvCyan/10 rounded-2xl p-2 border border-cvCyan/30">
+                                <i class="fa-solid fa-briefcase text-3xl text-cvCyan"></i>
+                            </div>
+                        </button>
+                        <p class="text-[10px] text-cvGrayText text-center mt-2 uppercase font-medium">
+                            Controlla le materie di oggi, <br><span class="font-bold text-gray-300">GIOVEDÌ 22 OTTOBRE 26</span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="h-[1px] bg-cvCyan/40 my-3"></div>
+
+                <!-- METRICS -->
+                <div class="grid grid-cols-3 text-center pt-1">
+                    <div>
+                        <div class="text-[11px] font-bold text-cvGrayText uppercase">ASSENZE</div>
+                        <div class="text-lg font-extrabold text-white mt-0.5">4</div>
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-bold text-cvGrayText uppercase">RITARDI</div>
+                        <div class="text-lg font-extrabold text-white mt-0.5">0</div>
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-bold text-cvGrayText uppercase">USCITE</div>
+                        <div class="text-lg font-extrabold text-white mt-0.5">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROSSIMI COMPITI -->
+            <div>
+                <div class="flex items-center justify-between mb-2 px-1">
+                    <h2 class="text-lg font-bold text-white">Prossimi compiti</h2>
+                    <button onclick="switchTab('diario')" class="text-xs text-cvGrayText flex items-center gap-1">Vedi tutti &gt;</button>
+                </div>
+                <div class="flex gap-3 overflow-x-auto hide-scrollbar pb-1">
+                    <div class="min-w-[250px] bg-cvCard rounded-xl p-3.5 border border-cvBorder/50 flex-shrink-0">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-white text-sm">MATEMATICA</h3>
+                            <i class="fa-solid fa-thumbtack text-cvRed text-xs"></i>
+                        </div>
+                        <p class="text-xs text-gray-300 mt-2 leading-relaxed">Esercitazione guidata in classe. Trovare m e q e definire l'angolo acuto o ottuso</p>
+                        <div class="h-[1px] bg-cvBorder my-2"></div>
+                        <div class="flex items-center justify-between text-[10px]">
+                            <span class="text-cvRed font-bold">Nuovo</span>
+                            <span class="text-cvGrayText font-semibold">MARTEDÌ 13 OTTOBRE</span>
+                        </div>
+                    </div>
+                    <div class="min-w-[250px] bg-cvCard rounded-xl p-3.5 border border-cvBorder/50 flex-shrink-0">
+                        <div class="flex justify-between items-start">
+                            <h3 class="font-bold text-white text-sm">LINGUA E LETTERATURA...</h3>
+                            <i class="fa-solid fa-thumbtack text-cvRed text-xs"></i>
+                        </div>
+                        <p class="text-xs text-gray-300 mt-2 leading-relaxed">Studiare pag 74-76, parafrasi scritta pag 75 + es 1,2,3,5,6 pag 77</p>
+                        <div class="h-[1px] bg-cvBorder my-2"></div>
+                        <div class="flex items-center justify-between text-[10px]">
+                            <span class="text-cvRed font-bold">Nuovo</span>
+                            <span class="text-cvGrayText font-semibold">VENERDÌ 23 OTTOBRE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EVENTI APPELLO -->
+            <div class="bg-cvCard rounded-2xl p-4 border border-cvBorder/40">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-base font-bold text-white">Eventi appello</h2>
+                    <span class="bg-cvRed text-white text-xs font-bold px-2 py-0.5 rounded-full">4</span>
+                </div>
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between py-1 border-b border-cvBorder/30 pb-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded border border-cvCyan text-cvCyan flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-sm text-white">Assenza</div>
+                                <div class="text-xs text-cvRed">(Da giustificare)</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-semibold text-cvCyan">20 OTT 26</span>
+                    </div>
+                    <div class="flex items-center justify-between py-1 border-b border-cvBorder/30 pb-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded border border-cvCyan text-cvCyan flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-sm text-white">Assenza</div>
+                                <div class="text-xs text-cvRed">(Da giustificare)</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-semibold text-cvCyan">07 OTT 26</span>
+                    </div>
+                    <div class="flex items-center justify-between py-1 border-b border-cvBorder/30 pb-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded border border-cvCyan text-cvCyan flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-sm text-white">Assenza</div>
+                                <div class="text-xs text-cvRed">(Da giustificare)</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-semibold text-cvCyan">11 SET 26</span>
+                    </div>
+                    <div class="flex items-center justify-between py-1">
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded border border-cvCyan text-cvCyan flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-xmark"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-sm text-white">Assenza</div>
+                                <div class="text-xs text-cvRed">(Da giustificare)</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-semibold text-cvCyan">10 SET 26</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BACHECA -->
+            <div class="bg-cvCard rounded-2xl p-4 border border-cvBorder/40">
+                <div class="flex items-center justify-between mb-3">
+                    <h2 class="text-base font-bold text-white">Bacheca</h2>
+                    <button onclick="switchTab('menu')" class="text-xs text-cvGrayText">Vedi tutti &gt;</button>
+                </div>
+                <div class="bg-cvBg/50 p-3 rounded-xl border border-cvBorder/40">
+                    <span class="text-xs text-cvCyan font-semibold">16 OTT 26</span>
+                    <h4 class="font-bold text-sm text-white mt-1">COMUNICAZIONI DEL DIRIGENTE SCOLASTICO</h4>
+                    <p class="text-xs text-cvGrayText mt-0.5">Direzione/Segreteria</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIARIO TAB -->
+        <div id="tab-diario" class="hidden space-y-4">
+            <h2 class="text-xl font-bold text-white mb-2">Diario</h2>
+            <div class="bg-cvCard rounded-2xl p-3 border border-cvBorder/40">
+                <div class="flex items-center justify-between mb-3 px-2">
+                    <i class="fa-solid fa-chevron-left text-xs text-cvGrayText"></i>
+                    <span class="font-bold text-sm text-white">ottobre 2026</span>
+                    <i class="fa-solid fa-chevron-right text-xs text-cvGrayText"></i>
+                </div>
+                <div class="grid grid-cols-7 text-center text-xs text-cvGrayText font-medium mb-2">
+                    <span>lun</span><span>mar</span><span>mer</span><span>gio</span><span>ven</span><span>sab</span><span>dom</span>
+                </div>
+                <div class="grid grid-cols-7 text-center text-sm font-semibold gap-y-1">
+                    <span class="text-cvGrayText">19</span>
+                    <span class="text-cvGrayText">20</span>
+                    <span class="text-cvGrayText">21</span>
+                    <span class="bg-cvCyan text-white rounded-full w-7 h-7 flex items-center justify-center mx-auto">22</span>
+                    <span class="text-cvGrayText">23</span>
+                    <span class="text-cvCyan">24</span>
+                    <span class="text-cvCyan">25</span>
+                </div>
+            </div>
+            <div class="bg-cvCard rounded-xl p-4 border border-cvBorder/50">
+                <div class="text-xs font-bold text-cvGrayText uppercase mb-2">DA CONSEGNARE GIOVEDÌ 22 OTTOBRE</div>
+                <h3 class="font-bold text-sm text-white">2^ LINGUA STRANIERA FRANCESE</h3>
+                <p class="text-xs text-cvCyan mt-0.5">A. FACCILONGO</p>
+                <p class="text-xs text-gray-200 mt-2">Répéter pag.27-28</p>
+            </div>
+        </div>
+
+        <!-- MENU TAB -->
+        <div id="tab-menu" class="hidden space-y-3">
+            <h2 class="text-xl font-bold text-white mb-2">Menu</h2>
+            <div class="grid grid-cols-2 gap-3">
+                <button onclick="openModal('voti-screen')" class="bg-cvCard p-4 rounded-xl border border-cvBorder/40 text-left flex flex-col justify-between h-24">
+                    <span class="font-bold text-sm text-white">Voti giornalieri</span>
+                    <div class="bg-emerald-500 w-7 h-7 rounded-lg flex items-center justify-center text-white self-end">
+                        <i class="fa-solid fa-star text-xs"></i>
+                    </div>
+                </button>
+                <div class="bg-cvCard p-4 rounded-xl border border-cvBorder/40 flex flex-col justify-between h-24">
+                    <span class="font-bold text-sm text-white">Ricevimento docenti</span>
+                    <div class="bg-lime-500 w-7 h-7 rounded-lg flex items-center justify-center text-white self-end">
+                        <i class="fa-solid fa-comments text-xs"></i>
+                    </div>
+                </div>
+                <div class="bg-cvCard p-4 rounded-xl border border-cvBorder/40 flex flex-col justify-between h-24">
+                    <span class="font-bold text-sm text-white">Bacheca</span>
+                    <div class="bg-cvCyan w-7 h-7 rounded-lg flex items-center justify-center text-white self-end">
+                        <i class="fa-solid fa-clipboard text-xs"></i>
+                    </div>
+                </div>
+                <div class="bg-cvCard p-4 rounded-xl border border-cvBorder/40 flex flex-col justify-between h-24">
+                    <span class="font-bold text-sm text-white">Giudizi</span>
+                    <div class="bg-gray-400 w-7 h-7 rounded-lg flex items-center justify-center text-white self-end">
+                        <i class="fa-solid fa-certificate text-xs"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- VOTI FULLSCREEN SCREEN -->
+    <div id="voti-screen" class="hidden fixed inset-0 bg-cvBg z-40 flex flex-col p-4 overflow-y-auto">
+        <div class="flex items-center gap-3 border-b border-cvBorder/40 pb-3 mb-4">
+            <button onclick="closeModal('voti-screen')" class="text-white text-lg p-1">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <div>
+                <h2 class="font-bold text-base text-white">VOTI GIORNALIERI</h2>
+                <p class="text-xs text-cvGrayText">YOUSRA</p>
+            </div>
+        </div>
+        <div class="space-y-4">
+            <div class="bg-cvCard rounded-xl p-1 flex text-xs font-bold">
+                <div class="flex-1 py-2 bg-cvCyan text-white rounded-lg text-center">PRIMO QUADRIMESTRE</div>
+                <div class="flex-1 py-2 text-cvGrayText text-center">SCRUTINIO FINALE</div>
+            </div>
+            <div class="py-6 text-center text-cvGrayText text-sm font-medium">Non ci sono ancora voti da mostrare</div>
+            <div class="bg-cvCard/50 p-4 rounded-xl text-center border border-cvBorder/30">
+                <h3 class="font-bold text-white text-base">La tua media è 0.0</h3>
+                <p class="text-[10px] text-cvGrayText mt-0.5">(Calcolata dal 01-09-2026 al 31-01-2027)</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCHEDULE MODAL -->
+    <div id="schedule-modal" class="hidden fixed inset-0 bg-black/80 z-50 flex items-end">
+        <div class="w-full bg-cvCard rounded-t-3xl p-5 space-y-3 max-h-[80vh] overflow-y-auto border-t border-cvBorder">
+            <div class="flex justify-between items-center border-b border-cvBorder/50 pb-2">
+                <h3 class="font-bold text-white text-base">GIOVEDÌ</h3>
+                <button onclick="closeModal('schedule-modal')" class="text-cvGrayText text-xl p-1"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="space-y-3 text-xs pt-1">
+                <div class="p-2 border-b border-cvBorder/30">
+                    <div class="font-bold text-white">1. LINGUA STRANIERA INGLESE - L. IATEST A</div>
+                    <div class="text-cvGrayText">08:00 - 08:50</div>
+                </div>
+                <div class="p-2 border-b border-cvBorder/30">
+                    <div class="font-bold text-white">2. SCIENZA E CULTURA DELL'ALIMENTAZIONE - A. VITACCHIONE</div>
+                    <div class="text-cvGrayText">08:50 - 09:40</div>
+                </div>
+                <div class="p-2 border-b border-cvBorder/30">
+                    <div class="font-bold text-white">3. LABORATORIO PASTICCERIA - D. CURCI</div>
+                    <div class="text-cvGrayText">09:40 - 10:40</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FIXED BOTTOM BAR -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-cvBg border-t border-cvBorder/50 flex justify-around items-center py-2 z-30">
+        <button id="btn-home" onclick="switchTab('home')" class="flex flex-col items-center text-cvCyan">
+            <div class="w-9 h-9 rounded-full bg-cvCyan flex items-center justify-center text-white">
+                <i class="fa-solid fa-house text-sm"></i>
+            </div>
+            <span class="text-[10px] font-semibold mt-1">Home</span>
+        </button>
+
+        <button id="btn-diario" onclick="switchTab('diario')" class="flex flex-col items-center text-cvGrayText">
+            <div class="w-9 h-9 flex items-center justify-center">
+                <i class="fa-solid fa-bookmark text-base"></i>
+            </div>
+            <span class="text-[10px] font-semibold mt-1">Diario</span>
+        </button>
+
+        <button id="btn-menu" onclick="switchTab('menu')" class="flex flex-col items-center text-cvGrayText">
+            <div class="w-9 h-9 flex items-center justify-center">
+ 
